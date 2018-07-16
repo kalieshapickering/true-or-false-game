@@ -1,7 +1,7 @@
 //questions for true or false game
 var trueOrFalseQuestions = [{
             q: "Is the main character of 'The Little Mermaid' name Arial?",
-            a: "t"
+            a: "f"
         },
         {
             q: "Was The Little Mermaid created in 2015?",
@@ -60,6 +60,7 @@ var trueOrFalseQuestions = [{
     // questions start at 0
     var trueOrFalseQuestionsIndex = 0;
     
+
     //functions of the game
     
     //functions render a question and update score
@@ -69,8 +70,8 @@ var trueOrFalseQuestions = [{
         if (trueOrFalseQuestionsIndex <= (trueOrFalseQuestions.length - 1)) {
             // update the id tag question with the next question in the array
             document.querySelector("#question").innerHTML = trueOrFalseQuestions[trueOrFalseQuestionsIndex].q;
-        }
     
+    }
         // once there is no more questions the game is finished
         else {
             // update selectors with below information
