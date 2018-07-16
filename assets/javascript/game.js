@@ -22,9 +22,9 @@ var trueOrFalseQuestions = [
     // questions start at 0
     var trueOrFalseQuestionsIndex = 0;
 
-    //functions of the game
+    //functions of the game render a question and update score
 
-    //functions render a question and update score
+    //function renders a question 
   function renderQuestion() {
 
   // If there are still more questions, render the next one
@@ -45,12 +45,13 @@ var trueOrFalseQuestions = [
 
 // Function that updates the score...
     function updateScore() {
-    document.querySelector("#score").innerHTML = "Score: " + score;
+    document.querySelector("#score").innerHTML = score;
 }
 
  //Start of game ( how it initially loads)
-    renderQuestion();
-    updateScore();
+ updateScore();
+ renderQuestion();
+    
 
     //process of playing the actual game
     document.onkeyup = function (event){
@@ -64,12 +65,18 @@ var trueOrFalseQuestions = [
         if (userGuess ===  trueOrFalseQuestions[trueOrFalseQuestionsIndex].a){
             document.querySelector("#answer").innerHTML = "CORRECT!";
             score++;
+            updateScore();
          // if user input does not match the key answer   
         }else document.querySelector("#answer").innerHTML = "WRONG!";
     } 
-    
-    // game displays next question
     trueOrFalseQuestionsIndex++;
     renderQuestion();
+    }
 
-     }
+    // game displays next question
+    
+    window.onLoad= function() {
+        trueOrFalseQuestionsIndex++;
+    renderQuestion();
+    }
+     
