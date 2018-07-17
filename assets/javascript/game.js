@@ -1,5 +1,5 @@
 //questions for true or false game
-var trueOrFalseQuestions = [{
+var r, q, randomQuestion, trueOrFalseQuestions = [{
             q: "Is the main character of 'The Little Mermaid' name Arial?",
             a: "f"
         },
@@ -56,6 +56,7 @@ var trueOrFalseQuestions = [{
     
     //game score starts at 0
     var score = 0;
+
    //this code only picks one random question once, need to add a loop to it
   //  var trueOrFalseQuestionsIndex = Math.floor(Math.random() * trueOrFalseQuestions.length);
    // var randomQuestion = trueOrFalseQuestions[trueOrFalseQuestionsIndex].q; 
@@ -66,32 +67,19 @@ var trueOrFalseQuestions = [{
 
     //functions render a question 
     function renderQuestion() {
-     // function that randomizes the questions (doesntWork)
-        function shuffle(trueOrFalseQuestions){
-            // this index = the array length, if this index is higher then 0 decrease
-            for ( var trueOrFalseQuestionsIndex = trueOrFalseQuestions.length - 1; trueOrFalseQuestionsIndex > 0; trueOrFalseQuestionsIndex--){
-                //select a random sequence from the array
-                var randomQuestionsIndex = Math.floor(Math.random() * (trueOrFalseQuestionsIndex + 1));
-                
-                // variable = the new question
-                randomQuestion = trueOrFalseQuestions[trueOrFalseQuestionsIndex].q;
-                //the new question is the outcome of the array
-                trueOrFalseQuestions[trueOrFalseQuestionsIndex].q = trueOrFalseQuestions[randomQuestionsIndex];
-                //array = the variable
-                trueOrFalseQuestions[randomQuestionsIndex] = randomQuestion;
-            }
-            //return the random question
-            return trueOrFalseQuestions
+        q = trueOrFalseQuestions.slice(0);
+        r= [];
+        while(q.length){
+            randomQuestion = Math.floor(Math.random()*q.length);
+            r.push(q.splice(randomQuestion,1));
+            
         }
-        // make the function a variable to reuse
-        question = shuffle(trueOrFalseQuestions);  
-        
         // If there are still more questions, render the next one
         if (trueOrFalseQuestions <= (trueOrFalseQuestions.length - 1)) {
     
       
             // update the id tag question with the next question in the array
-            document.querySelector("#question").innerHTML = question;//trueOrFalseQuestions[trueOrFalseQuestionsIndex].q;
+            document.querySelector("#question").innerHTML = (r[r.length-1]);//trueOrFalseQuestions[trueOrFalseQuestionsIndex].q;
 
     }
         // once there is no more questions the game is finished
