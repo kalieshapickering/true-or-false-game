@@ -20,7 +20,7 @@ var trueOrFalseQuestions = [{
             a: "t"
         },
         {
-            q: "Is the main protaginest Ursula ?",
+            q: "Is the main protagonist Ursula ?",
             a: "t"
         },
         {
@@ -56,31 +56,53 @@ var trueOrFalseQuestions = [{
     
     //game score starts at 0
     var score = 0;
-    
-    // questions start at 0
-    var trueOrFalseQuestionsIndex = 0;
-    
+   //this code only picks one random question once, need to add a loop to it
+  //  var trueOrFalseQuestionsIndex = Math.floor(Math.random() * trueOrFalseQuestions.length);
+   // var randomQuestion = trueOrFalseQuestions[trueOrFalseQuestionsIndex].q; 
 
-    //functions of the game
-    
-    //functions render a question and update score
+
+    //functions of the game render a question and update score
+        
+
+    //functions render a question 
     function renderQuestion() {
-    
+     // function that randomizes the questions (doesntWork)
+        function shuffle(trueOrFalseQuestions){
+            // this index = the array length, if this index is higher then 0 decrease
+            for ( var trueOrFalseQuestionsIndex = trueOrFalseQuestions.length - 1; trueOrFalseQuestionsIndex > 0; trueOrFalseQuestionsIndex--){
+                //select a random sequence from the array
+                var randomQuestionsIndex = Math.floor(Math.random() * (trueOrFalseQuestionsIndex + 1));
+                
+                // variable = the new question
+                randomQuestion = trueOrFalseQuestions[trueOrFalseQuestionsIndex].q;
+                //the new question is the outcome of the array
+                trueOrFalseQuestions[trueOrFalseQuestionsIndex].q = trueOrFalseQuestions[randomQuestionsIndex];
+                //array = the variable
+                trueOrFalseQuestions[randomQuestionsIndex] = randomQuestion;
+            }
+            //return the random question
+            return trueOrFalseQuestions
+        }
+        // make the function a variable to reuse
+        question = shuffle(trueOrFalseQuestions);  
+        
         // If there are still more questions, render the next one
-        if (trueOrFalseQuestionsIndex <= (trueOrFalseQuestions.length - 1)) {
-            // update the id tag question with the next question in the array
-            document.querySelector("#question").innerHTML = trueOrFalseQuestions[trueOrFalseQuestionsIndex].q;
+        if (trueOrFalseQuestions <= (trueOrFalseQuestions.length - 1)) {
     
+      
+            // update the id tag question with the next question in the array
+            document.querySelector("#question").innerHTML = question;//trueOrFalseQuestions[trueOrFalseQuestionsIndex].q;
+
     }
         // once there is no more questions the game is finished
-        else {
+     else {
             // update selectors with below information
-            document.querySelector("#question").outerHTML = "Game Over!";
+            document.querySelector("#question").innerHTML = "Game Over!";
             document.querySelector("#score").innerHTML = score + " out of " + trueOrFalseQuestions.length;
             document.querySelector("#answer").innerHTML = " ";
-        }
+       }
     }
-    
+   
     // Function that updates the score...
     function updateScore() {
         document.querySelector("#score").innerHTML =  score;
@@ -93,13 +115,13 @@ var trueOrFalseQuestions = [{
         //user inputs
         if (userGuess === "t" || userGuess === "f") {
             // No more questions
-            if (trueOrFalseQuestionsIndex >= trueOrFalseQuestions.length) {
+            if (trueOrFalseQuestions >= trueOrFalseQuestions.length) {
               return;
             }
     
-            var q = trueOrFalseQuestions[trueOrFalseQuestionsIndex];
+           // var q = trueOrFalseQuestions[trueOrFalseQuestions];
             // if user input matches the key answer
-            if (userGuess === q.a) {
+            if (userGuess === trueOrFalseQuestions.a) {
                 document.querySelector("#answer").innerHTML = "CORRECT!";
                 score++;
                 updateScore();
@@ -109,7 +131,7 @@ var trueOrFalseQuestions = [{
             }
     
             // game displays next question
-            trueOrFalseQuestionsIndex++;
+            randomQuestion++;
             renderQuestion();
         }
     }
