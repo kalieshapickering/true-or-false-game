@@ -1,5 +1,5 @@
 //questions for true or false game
-var r, q, randomQuestion, trueOrFalseQuestions = [{
+var trueOrFalseQuestions = [{
             q: "Is the main character of 'The Little Mermaid' name Arial?",
             a: "f"
         },
@@ -20,7 +20,7 @@ var r, q, randomQuestion, trueOrFalseQuestions = [{
             a: "t"
         },
         {
-            q: "Is the main protagonist Ursula ?",
+            q: "Is the main protaginest Ursula ?",
             a: "t"
         },
         {
@@ -56,44 +56,33 @@ var r, q, randomQuestion, trueOrFalseQuestions = [{
     
     //game score starts at 0
     var score = 0;
-
-   //this code only picks one random question once, need to add a loop to it
-  //  var trueOrFalseQuestionsIndex = Math.floor(Math.random() * trueOrFalseQuestions.length);
-   // var randomQuestion = trueOrFalseQuestions[trueOrFalseQuestionsIndex].q; 
-
-
-    //functions of the game render a question and update score
-        
-
-    //functions render a question 
-    function renderQuestion() {
-        q = trueOrFalseQuestions.slice(0);
-        r= [];
-        while(q.length){
-            randomQuestion = Math.floor(Math.random()*q.length);
-            r.push(q.splice(randomQuestion,1));
-            
-        }
-        // If there are still more questions, render the next one
-        if (trueOrFalseQuestions <= (trueOrFalseQuestions.length - 1)) {
     
-      
+    // questions start at 0
+    var trueOrFalseQuestionsIndex = 0;
+    
+    //functions of the game
+    
+    //functions render a question and update score
+    function renderQuestion() {
+    
+        // If there are still more questions, render the next one
+        if (trueOrFalseQuestionsIndex <= (trueOrFalseQuestions.length - 1)) {
             // update the id tag question with the next question in the array
-            document.querySelector("#question").innerHTML = (r[r.length-1]);//trueOrFalseQuestions[trueOrFalseQuestionsIndex].q;
-
-    }
+            document.querySelector("#question").innerHTML = trueOrFalseQuestions[trueOrFalseQuestionsIndex].q;
+        }
+    
         // once there is no more questions the game is finished
-     else {
+        else {
             // update selectors with below information
-            document.querySelector("#question").innerHTML = "Game Over!";
-            document.querySelector("#score").innerHTML = score + " out of " + trueOrFalseQuestions.length;
+            document.querySelector("#question").outerHTML = "Game Over!";
+            document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + trueOrFalseQuestions.length;
             document.querySelector("#answer").innerHTML = " ";
-       }
+        }
     }
-   
+    
     // Function that updates the score...
     function updateScore() {
-        document.querySelector("#score").innerHTML =  score;
+        document.querySelector("#score").innerHTML = "Score: " + score;
     }
     
     //process of playing the actual game
@@ -103,13 +92,13 @@ var r, q, randomQuestion, trueOrFalseQuestions = [{
         //user inputs
         if (userGuess === "t" || userGuess === "f") {
             // No more questions
-            if (trueOrFalseQuestions >= trueOrFalseQuestions.length) {
+            if (trueOrFalseQuestionsIndex >= trueOrFalseQuestions.length) {
               return;
             }
     
-           // var q = trueOrFalseQuestions[trueOrFalseQuestions];
+            var q = trueOrFalseQuestions[trueOrFalseQuestionsIndex];
             // if user input matches the key answer
-            if (userGuess === trueOrFalseQuestions.a) {
+            if (userGuess === q.a) {
                 document.querySelector("#answer").innerHTML = "CORRECT!";
                 score++;
                 updateScore();
@@ -119,7 +108,7 @@ var r, q, randomQuestion, trueOrFalseQuestions = [{
             }
     
             // game displays next question
-            randomQuestion++;
+            trueOrFalseQuestionsIndex++;
             renderQuestion();
         }
     }
